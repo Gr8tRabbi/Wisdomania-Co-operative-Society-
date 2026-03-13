@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wisdomania™ Premium · Moon cycle & market 2026</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:'Segoe UI',Roboto,sans-serif;background:#0f172a;color:#f8fafc}
+header{background:#22c55e;padding:1.5rem;text-align:center;font-size:2rem;font-weight:800;letter-spacing:2px;color:#0f172a;text-shadow:2px 2px 0 #bef264}
+nav{display:flex;justify-content:center;background:#1e293b;padding:0.75rem;flex-wrap:wrap;gap:0.5rem;border-bottom:2px solid #f59e0b}
+nav button{padding:0.6rem 1.5rem;border:none;border-radius:40px;background:#22c55e;color:#0f172a;font-weight:bold;font-size:1rem;cursor:pointer;transition:0.2s;box-shadow:0 4px 0 #15803d}
+nav button:hover{background:#4ade80;transform:translateY(-2px);box-shadow:0 6px 0 #15803d}
+section{display:none;padding:2rem 1.5rem;max-width:1200px;margin:0 auto}
+.active{display:block}
+.calendar-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:1rem}
+.month-nav{display:flex;gap:0.8rem;align-items:center}
+.month-nav button{background:#f59e0b;border:none;color:#0f172a;font-weight:bold;font-size:1.4rem;width:3rem;height:3rem;border-radius:50%;cursor:pointer;box-shadow:0 4px 0 #b45309;transition:0.1s;display:inline-flex;align-items:center;justify-content:center}
+.month-nav button:hover{background:#fbbf24;transform:translateY(-2px);box-shadow:0 6px 0 #b45309}
+#currentMonthYear{font-size:2rem;font-weight:600;background:#1e293b;padding:0.3rem 2rem;border-radius:60px;border:2px solid #f59e0b}
+.calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:0.5rem;background:#0f172a;border-radius:24px;padding:0.8rem}
+.day{background:#1e293b;padding:0.7rem 0.2rem;border-radius:20px;text-align:center;font-size:0.9rem;border:1px solid #334155;box-shadow:0 2px 0 #0f172a;transition:0.1s}
+.day:hover{background:#2d3a4f;border-color:#f59e0b}
+.today{background:#f59e0b;color:#0f172a;font-weight:bold;border:2px solid #facc15;box-shadow:0 0 10px #fbbf24}
+.day .day-number{font-size:1.3rem;font-weight:800;line-height:1.2}
+.day .market-badge{font-weight:600;font-size:0.9rem}
+.day .meta{font-size:0.7rem;display:flex;justify-content:center;gap:0.3rem;flex-wrap:wrap;opacity:0.9}
+.weekday{color:#94a3b8;font-size:0.7rem;text-transform:uppercase}
+.wheel{text-align:center;margin-top:2rem;font-size:1.3rem;background:#1e293b;padding:1rem;border-radius:60px;border:2px solid #22c55e;font-weight:500}
+.wheel span{margin:0 1rem;display:inline-block}
+table{border-collapse:collapse;width:100%;background:#1e293b;border-radius:20px;overflow:hidden;box-shadow:0 8px 0 #0f172a}
+th,td{border:1px solid #334155;padding:1rem;text-align:center;color:white}
+th{background:#22c55e;color:#0f172a;font-weight:800;font-size:1.1rem}
+td{background:#1e293b}
+.pdf-button{display:inline-block;margin-top:2rem;padding:1rem 2.5rem;background:#f59e0b;color:#0f172a;font-weight:bold;font-size:1.3rem;text-decoration:none;border-radius:60px;box-shadow:0 8px 0 #b45309;transition:0.1s}
+.pdf-button:hover{background:#fbbf24;transform:translateY(-2px);box-shadow:0 10px 0 #b45309}
+.align-link{display:inline-block;margin-top:1rem;margin-right:1rem;padding:0.8rem 2rem;background:#22c55e;color:#0f172a;font-weight:bold;font-size:1.2rem;text-decoration:none;border-radius:60px;box-shadow:0 5px 0 #15803d;transition:0.1s}
+.align-link:hover{background:#4ade80;transform:translateY(-2px);box-shadow:0 7px 0 #15803d}
+input,button{border-radius:40px;padding:0.8rem 1.5rem;border:none;font-size:1rem}
+#dateInput{background:#1e293b;color:white;border:2px solid #f59e0b;margin-right:1rem}
+#result{background:#1e293b;padding:1.5rem;border-radius:30px;margin-top:1.5rem;border-left:8px solid #f59e0b}
+.link-group{display:flex;flex-wrap:wrap;align-items:center;gap:1.5rem;margin-top:2rem}
+footer{background:#1e293b;padding:1.5rem;text-align:center;border-top:2px solid #22c55e;margin-top:3rem;color:#94a3b8;font-size:0.95rem}
+footer strong{color:#22c55e;font-weight:600}
+footer .sign{color:#f59e0b;font-style:italic;margin-top:0.5rem;display:block}
+.motto{text-align:center;font-size:1.1rem;color:#22c55e;font-weight:600;letter-spacing:1px;margin:1rem 0;padding:0.8rem;background:#1e293b;border-radius:40px;border:2px solid #f59e0b}
+.element-emoji{font-size:1.2rem;margin-right:0.3rem}
+</style>
+</head>
+<body>
+
+<header>⚡ WISDOMANIA™ 2026 ⚡</header>
+
+<nav>
+<button onclick="showSection('calendar')">📅 Calendar</button>
+<button onclick="showSection('calculator')">🧮 Calculator</button>
+<button onclick="showSection('planner')">📋 Planner</button>
+<button onclick="showSection('guide')">📘 Premium Guide</button>
+</nav>
+
+<!-- ========== CALENDAR SECTION with month nav ========= -->
+<section id="calendar" class="active">
+  <div class="calendar-header">
+    <div class="month-nav">
+      <button id="prevMonthBtn" onclick="changeMonth(-1)">◀</button>
+      <span id="currentMonthYear">January 2026</span>
+      <button id="nextMonthBtn" onclick="changeMonth(1)">▶</button>
+    </div>
+    <div style="color:#22c55e; font-weight:500">🌊 Water · 🌍 Earth · 💨 Air · 🔥 Fire</div>
+  </div>
+  <div class="calendar" id="calendarGrid"></div>
+  <div class="wheel">
+    <span>🔥 Eke ↑</span>    
+    <span>🌊 Orie ← → 💨 Nkwo</span>    
+    <span>🌍 Afor ↓</span>
+  </div>
+</section>
+
+<!-- ========== CALCULATOR ========= -->
+<section id="calculator">
+  <h2 style="color:#f59e0b">📅 Market‑Day Calculator + Elements</h2>
+  <input type="date" id="dateInput" value="2026-03-13">
+  <button onclick="checkDate()">🔍 Inspect date</button>
+  <div id="result">Select a date to see details</div>
+</section>
+
+<!-- ========== PLANNER ========= -->
+<section id="planner">
+  <h2 style="color:#f59e0b">📆 Weekly Planner Template</h2>
+  <table>
+    <tr><th>Day</th><th>Market</th><th>Element</th><th>Focus</th></tr>
+    <tr><td>Day 1</td><td>Orie</td><td>🌊 Water</td><td>Reflection / Planning</td></tr>
+    <tr><td>Day 2</td><td>Afor</td><td>🌍 Earth</td><td>Foundation / Stability</td></tr>
+    <tr><td>Day 3</td><td>Nkwo</td><td>💨 Air</td><td>Communication / Trade</td></tr>
+    <tr><td>Day 4</td><td>Eke</td><td>🔥 Fire</td><td>Action / Leadership</td></tr>
+  </table>
+  <p style="margin-top:1rem; font-style:italic; color:#94a3b8">* Elements cycle daily with market days for balanced living.</p>
+</section>
+
+<!-- ========== GUIDE ========= -->
+<section id="guide">
+  <h2 style="color:#f59e0b">📕 Premium Wisdomania PDF Guide</h2>
+  <p>Download the full 2026 offline guide – includes element wheels, archangels & daily focus.</p>
+  <ul style="line-height:2; font-size:1.2rem">
+    <li>✅ Complete 2026 calendar with elemental days</li>
+    <li>✅ Market‑day alignment wheel & elements</li>
+    <li>✅ Weekly planner + elemental hour tips</li>
+    <li>✅ Daily focus, archangel, element guidance</li>
+    <li>✅ Exclusive elemental market rituals</li>
+  </ul>
+  
+  <!-- Link group: both the PDF button and the new Wisdomania Alignment link -->
+  <div class="link-group">
+    <a class="pdf-button" href="#" onclick="alert('Demo — PDF would download here')">⬇ DOWNLOAD PREMIUM PDF</a>
+    <a class="align-link" href="https://bit.ly/40wwQ0a" target="_blank" rel="noopener">🌀 Wisdomania Alignment</a>
+  </div>
+  <p style="margin-top:1rem; color:#94a3b8">Click "Wisdomania Alignment" for exclusive alignment tools and updates.</p>
+</section>
+
+<!-- Motto section replacing the black/golden hint -->
+<div class="motto">✨ Structurize. Align. Grow. Enjoy. Balance Life ✨</div>
+
+<!-- ========== FOOTER ========= -->
+<footer>
+  <strong>Powered by Wisdomania Co-operative Society</strong>
+  <span class="sign">gr8trabbi sign</span>
+</footer>
+
+<script>
+// ---------- global setup ----------
+const start_date = new Date("2026-01-01");
+const market_days = ["Orie","Afor","Nkwo","Eke"];
+const elements = {"Orie":"🌊 Water","Afor":"🌍 Earth","Nkwo":"💨 Air","Eke":"🔥 Fire"};
+const archangels = {"Orie":"Gabriel","Afor":"Raphael","Nkwo":"Uriel","Eke":"Michael"};
+const daily_focus = {"Orie":"Reflection, wisdom","Afor":"Stability, foundation","Nkwo":"Trade, communication","Eke":"Action, leadership"};
+
+function getMarketDay(date){
+  const diff = Math.floor((date - start_date) / (1000*60*60*24));
+  const idx = ((diff % 4) + 4) % 4; // safe modulo
+  const day = market_days[idx];
+  return {
+    day,
+    element: elements[day],
+    archangel: archangels[day],
+    focus: daily_focus[day]
+  };
+}
+
+// ---------- calendar state ----------
+let currentDisplayYear = 2026;
+let currentDisplayMonth = 0; // 0 = January
+
+function renderCalendar(month, year) {
+  const calendarGrid = document.getElementById('calendarGrid');
+  if (!calendarGrid) return;
+  calendarGrid.innerHTML = '';
+
+  // first day of month (0 = Sunday, 1 = Monday ...)
+  const firstDay = new Date(year, month, 1).getDay(); // 0 sun .. 6 sat
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const today = new Date();
+  
+  // add empty cells for days before month starts (Sunday-based, we keep as is)
+  for (let i = 0; i < firstDay; i++) {
+    const emptyDiv = document.createElement('div');
+    emptyDiv.className = 'day';
+    emptyDiv.style.background = '#0f172a'; emptyDiv.style.border = 'none'; emptyDiv.style.boxShadow = 'none';
+    emptyDiv.innerHTML = '&nbsp;';
+    calendarGrid.appendChild(emptyDiv);
+  }
+
+  // fill actual days
+  for (let d = 1; d <= daysInMonth; d++) {
+    const date = new Date(year, month, d);
+    const market = getMarketDay(date);
+    const weekday = date.toLocaleDateString('en-US', { weekday: 'short' }); // Mon, Tue...
+    
+    const div = document.createElement('div');
+    div.className = 'day';
+    
+    // highlight if today
+    if (date.getFullYear() === today.getFullYear() && date.getMonth() === today.getMonth() && date.getDate() === today.getDate()) {
+      div.classList.add('today');
+    }
+    
+    div.innerHTML = `
+      <div class="day-number">${d}</div>
+      <div class="market-badge">${market.day}</div>
+      <div class="meta">
+        <span class="weekday">${weekday}</span>
+      </div>
+      <div style="font-size:1rem;margin-top:0.3rem;">
+        <span class="element-emoji">${market.element.split(' ')[0]}</span>
+        <small>${market.element.split(' ')[1]}</small>
+      </div>
+    `;
+    calendarGrid.appendChild(div);
+  }
+
+  // update month-year header
+  const monthName = new Date(year, month, 1).toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+  document.getElementById('currentMonthYear').innerText = monthName;
+}
+
+// month navigation
+function changeMonth(delta) {
+  let newMonth = currentDisplayMonth + delta;
+  let newYear = currentDisplayYear;
+  if (newMonth < 0) {
+    newMonth = 11;
+    newYear -= 1;
+  } else if (newMonth > 11) {
+    newMonth = 0;
+    newYear += 1;
+  }
+  // keep within 2026 for simplicity (you can extend but guide is 2026)
+  if (newYear < 2026) newYear = 2026, newMonth = 0;
+  if (newYear > 2026) newYear = 2026, newMonth = 11;
+  
+  currentDisplayMonth = newMonth;
+  currentDisplayYear = newYear;
+  renderCalendar(currentDisplayMonth, currentDisplayYear);
+}
+
+// ---------- calculator (upgraded with elements + weekday) ----------
+function checkDate(){
+  const input = document.getElementById('dateInput').value;
+  if(!input){ alert("Please select a date"); return; }
+  const date = new Date(input);
+  if (isNaN(date)) { alert("Invalid date"); return; }
+  
+  const market = getMarketDay(date);
+  const weekdayLong = date.toLocaleDateString('en-US', { weekday: 'long' });
+  
+  document.getElementById('result').innerHTML = `
+    <strong style="font-size:1.4rem; color:#f59e0b">${weekdayLong}, ${date.toDateString()}</strong><br>
+    <span style="display:inline-block; margin-top:0.7rem;">🔮 Market Day: <b>${market.day}</b></span><br>
+    <span style="font-size:1.2rem; display:block; margin:0.5rem 0;">
+      <span class="element-emoji">${market.element.split(' ')[0]}</span> 
+      <b>${market.element}</b>
+    </span>
+    <span>🧑‍🎤 Archangel: ${market.archangel}</span><br>
+    <span>🎯 Daily focus: ${market.focus}</span>
+  `;
+}
+
+// navigation between sections
+function showSection(id){
+  document.querySelectorAll('section').forEach(s => s.style.display = 'none');
+  document.getElementById(id).style.display = 'block';
+}
+
+// initial render
+window.onload = function() {
+  // set today's date in calculator as default
+  const today = new Date();
+  const yyyy = today.getFullYear();
+  let mm = today.getMonth()+1;
+  let dd = today.getDate();
+  if (mm<10) mm='0'+mm;
+  if (dd<10) dd='0'+dd;
+  const todayStr = yyyy+'-'+mm+'-'+dd;
+  document.getElementById('dateInput').value = todayStr;  // prefill
+  
+  // start calendar at March 2026 (or current month if in 2026)
+  if (today.getFullYear() === 2026) {
+    currentDisplayMonth = today.getMonth();
+    currentDisplayYear = 2026;
+  } else {
+    currentDisplayMonth = 2; // march
+    currentDisplayYear = 2026;
+  }
+  renderCalendar(currentDisplayMonth, currentDisplayYear);
+  
+  // run calculator once to show default
+  checkDate();
+};
+
+// attach global functions
+window.showSection = showSection;
+window.changeMonth = changeMonth;
+window.checkDate = checkDate;
+
+</script>
+
+</body>
+</html>
